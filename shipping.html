@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shipping & Delivery | Apex Clothing</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <style>
+      .hamburger {
+        display: none;
+        flex-direction: column;
+        cursor: pointer;
+        margin-left: auto;
+      }
+      .hamburger div {
+        width: 25px;
+        height: 3px;
+        background: #fff;
+        margin: 1px 0;
+      }
+
+      /* By default: display flex for large screens */
+      #mobile-nav {
+        display: flex;
+        gap: 1.5rem;
+      }
+
+      /* Only hide it on mobile */
+      @media (max-width: 768px) {
+        #mobile-nav {
+          display: none;
+          flex-direction: column;
+          margin-top: 10px;
+        }
+
+        #mobile-nav.show {
+          display: flex;
+        }
+        .hamburger {
+          display: flex;
+        }
+      }
+    </style>
+    <header>
+      <h1>Apex Clothing</h1>
+      <div class="hamburger" onclick="toggleMenu()">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+      <nav id="mobile-nav">
+        <a href="index.html">Home</a>
+        <a href="shop.html">Shop</a>
+        <a href="blog.html">Blog</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </header>
+
+    <section style="padding: 3rem 2rem; max-width: 900px; margin: auto">
+      <h2>Shipping & Delivery</h2>
+      <p>
+        We deliver to all major cities across Nigeria within 2-5 working days.
+        For rural areas, please allow up to 7 working days.
+      </p>
+      <p>
+        Tracking information will be provided once your order is shipped.
+        Delivery fees are calculated at checkout based on your location.
+      </p>
+      <p>
+        For any delivery issues, kindly contact our support team via the Contact
+        page.
+      </p>
+    </section>
+
+    <footer style="background: #111; color: white; padding: 3rem 2rem">
+      <div
+        style="
+          max-width: 1200px;
+          margin: auto;
+          display: flex;
+          flex-wrap: wrap;
+          gap: 2rem;
+          justify-content: space-between;
+        "
+      >
+        <!-- Navigation Links -->
+        <div>
+          <h3 style="margin-bottom: 1rem">Quick Links</h3>
+          <ul style="list-style: none; padding: 0">
+            <li>
+              <a href="index.html" style="color: white; text-decoration: none"
+                >Home</a
+              >
+            </li>
+            <li>
+              <a href="shop.html" style="color: white; text-decoration: none"
+                >Shop</a
+              >
+            </li>
+            <li>
+              <a href="blog.html" style="color: white; text-decoration: none"
+                >Blog</a
+              >
+            </li>
+            <li>
+              <a href="contact.html" style="color: white; text-decoration: none"
+                >Contact</a
+              >
+            </li>
+            <li>
+              <a href="login.html" style="color: white; text-decoration: none"
+                >Login</a
+              >
+            </li>
+          </ul>
+        </div>
+
+        <!-- Legal Stuff -->
+        <div>
+          <h3 style="margin-bottom: 1rem">Information</h3>
+          <details style="margin-bottom: 0.8rem">
+            <summary style="cursor: pointer; color: white">
+              Privacy Policy
+            </summary>
+            <p style="color: #aaa; font-size: 0.9rem">
+              Your data is safe with us.
+              <a href="privacy.html" style="color: #ff6600">Read more</a>
+            </p>
+          </details>
+          <details style="margin-bottom: 0.8rem">
+            <summary style="cursor: pointer; color: white">
+              Terms & Conditions
+            </summary>
+            <p style="color: #aaa; font-size: 0.9rem">
+              Please read how you’re allowed to use this site.
+              <a href="terms.html" style="color: #ff6600">Read more</a>
+            </p>
+          </details>
+          <details>
+            <summary style="cursor: pointer; color: white">
+              Shipping & Delivery
+            </summary>
+            <p style="color: #aaa; font-size: 0.9rem">
+              Get info on delivery timelines and areas.
+              <a href="shipping.html" style="color: #ff6600">Read more</a>
+            </p>
+          </details>
+        </div>
+
+        <!-- Social Media -->
+        <div>
+          <h3 style="margin-bottom: 1rem">Connect With Us</h3>
+          <div style="display: flex; gap: 1rem; font-size: 1.5rem">
+            <a href="#" style="color: white"
+              ><i class="fab fa-facebook-f"></i
+            ></a>
+            <a href="#" style="color: white"
+              ><i class="fab fa-instagram"></i
+            ></a>
+            <a href="#" style="color: white"><i class="fab fa-whatsapp"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <div
+        style="
+          text-align: center;
+          color: #aaa;
+          margin-top: 2rem;
+          font-size: 0.9rem;
+        "
+      >
+        &copy; 2025 Apex Clothing. All rights reserved.
+      </div>
+    </footer>
+    <script>
+      function toggleMenu() {
+        document.getElementById("mobile-nav").classList.toggle("show");
+      }
+    </script>
+  </body>
+</html>

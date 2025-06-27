@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign Up - Apex Clothing</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background: linear-gradient(to left, #111, #444);
+        color: white;
+      }
+      .signup-container {
+        background: white;
+        color: #333;
+        padding: 2rem;
+        border-radius: 10px;
+        width: 90%;
+        max-width: 450px;
+        box-shadow: 0 0 25px rgba(0, 0, 0, 0.2);
+        animation: popFadeIn 0.8s ease;
+      }
+      .signup-container h2 {
+        text-align: center;
+        margin-bottom: 1.5rem;
+      }
+      input {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 1rem;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+      }
+      button {
+        width: 100%;
+        background: #111;
+        color: white;
+        border: none;
+        padding: 10px;
+        border-radius: 5px;
+        cursor: pointer;
+        animation: bounce 1.5s infinite;
+      }
+      @keyframes bounce {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-8px);
+        }
+      }
+      a {
+        display: block;
+        text-align: center;
+        margin-top: 1rem;
+        color: #555;
+        text-decoration: none;
+      }
+      a:hover {
+        color: #f39c12;
+      }
+      @keyframes popFadeIn {
+        from {
+          transform: scale(0.95);
+          opacity: 0;
+        }
+        to {
+          transform: scale(1);
+          opacity: 1;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="signup-container">
+      <h2>Create an Account</h2>
+      <input type="text" id="signup-name" placeholder="Full Name" required />
+      <input type="email" id="signup-email" placeholder="Email" required />
+      <input
+        type="password"
+        id="signup-password"
+        placeholder="Password"
+        required
+      />
+      <button onclick="signupUser()">Sign Up</button>
+      <a href="login.html">Already have an account? Login</a>
+    </div>
+
+    <script>
+      function signupUser() {
+        const name = document.getElementById("signup-name").value.trim();
+        const email = document.getElementById("signup-email").value.trim();
+        const password = document
+          .getElementById("signup-password")
+          .value.trim();
+
+        if (!name || !email || !password) {
+          return alert("Please fill in all fields.");
+        }
+
+        const newUser = {
+          name,
+          email,
+          password,
+        };
+
+        localStorage.setItem("apex-current-user", JSON.stringify(newUser));
+        alert("Account created! You're now logged in.");
+        window.location.href = "index.html";
+      }
+    </script>
+  </body>
+</html>
