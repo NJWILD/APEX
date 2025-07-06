@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Privacy Policy | Apex Clothing</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div id="preloader">
+      <div class="loader"></div>
+    </div>
+    <style>
+      .hamburger {
+        display: none;
+        flex-direction: column;
+        cursor: pointer;
+        margin-left: auto;
+      }
+      .hamburger div {
+        width: 25px;
+        height: 3px;
+        background: #fff;
+        margin: 1px 0;
+      }
+
+      /* By default: display flex for large screens */
+      #mobile-nav {
+        display: flex;
+        gap: 1.5rem;
+      }
+
+      /* Only hide it on mobile */
+      @media (max-width: 768px) {
+        #mobile-nav {
+          display: none;
+          flex-direction: column;
+          margin-top: 10px;
+        }
+
+        #mobile-nav.show {
+          display: flex;
+        }
+        .hamburger {
+          display: flex;
+        }
+      }
+    </style>
+    <header>
+      <h1>APEX</h1>
+      <div class="hamburger" onclick="toggleMenu()">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+      <nav id="mobile-nav">
+        <a href="index.html">Home</a>
+        <a href="shop.html">Shop</a>
+        <a href="blog.html">Blog</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </header>
+
+    <section style="padding: 3rem 2rem; max-width: 900px; margin: auto">
+      <h2>Privacy Policy</h2>
+      <p>
+        We value your privacy. All customer information is confidential and will
+        never be shared with third parties without consent. We only collect data
+        needed to process orders and improve your shopping experience.
+      </p>
+      <p>
+        This includes your name, email, shipping address, and purchase history.
+      </p>
+      <p>
+        By using this website, you agree to the collection and use of this
+        information as described above.
+      </p>
+    </section>
+
+    <!-- VIP Subscribe Section -->
+    <section class="vip-subscribe">
+      <h1>Subscribe to our Channel</h1>
+      <a
+        href="#"
+        onclick="openPopup()"
+        style="
+          display: inline-block;
+          margin-top: 1rem;
+          padding: 0.8rem 1.5rem;
+          background-color: #ff6600;
+          color: white;
+          text-decoration: none;
+          border-radius: 8px;
+        "
+        >Claim VIP Discount</a
+      >
+    </section>
+
+    <!-- Popup Modal -->
+    <div
+      id="vip-popup"
+      style="
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.7);
+        z-index: 999;
+        justify-content: center;
+        align-items: center;
+      "
+    >
+      <div
+        style="
+          background: white;
+          color: black;
+          padding: 2rem;
+          border-radius: 10px;
+          max-width: 400px;
+          width: 90%;
+          text-align: center;
+          position: relative;
+        "
+      >
+        <h2>Insert Your Phone Number</h2>
+        <input
+          type="text"
+          id="vip-phone"
+          placeholder="e.g. 08123456789"
+          style="
+            width: 100%;
+            padding: 0.6rem;
+            margin: 1rem 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+          "
+        />
+        <p style="font-size: 0.85rem; color: #555">
+          By subscribing, you agree to our brief terms and conditions.
+        </p>
+        <button
+          onclick="submitVIP()"
+          style="
+            padding: 0.6rem 1.2rem;
+            background: #111;
+            color: white;
+            border: none;
+            border-radius: 5px;
+          "
+        >
+          Submit
+        </button>
+        <p id="vip-msg" style="margin-top: 1rem; color: green; display: none">
+          You have been subscribed!
+        </p>
+        <button
+          onclick="closePopup()"
+          style="
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+          "
+        >
+          &times;
+        </button>
+      </div>
+    </div>
+
+    <footer class="site-footer">
+      <div class="footer-container">
+        <!-- Navigation Links -->
+        <div class="footer-column">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="shop.html">Shop</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="login.html">Login</a></li>
+          </ul>
+        </div>
+
+        <!-- Legal Stuff -->
+        <div class="footer-column">
+          <h3>Information</h3>
+          <details>
+            <summary>Privacy Policy</summary>
+            <p>
+              Your data is safe with us. <a href="privacy.html">Read more</a>
+            </p>
+          </details>
+          <details>
+            <summary>Terms & Conditions</summary>
+            <p>
+              Please read how you’re allowed to use this site.
+              <a href="terms.html">Read more</a>
+            </p>
+          </details>
+          <details>
+            <summary>Shipping & Delivery</summary>
+            <p>
+              Get info on delivery timelines and areas.
+              <a href="shipping.html">Read more</a>
+            </p>
+          </details>
+        </div>
+
+        <!-- Social Media -->
+        <div class="footer-column">
+          <h3>Connect With Us</h3>
+          <div class="social-icons">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-whatsapp"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        &copy; 2025 Apex Clothing. All rights reserved.
+      </div>
+
+      <div class="currency-switcher">
+        <label for="currency-switcher">Select Currency:</label>
+        <select id="currency-switcher">
+          <option value="NGN" selected>Naira (₦)</option>
+          <option value="USD">Dollar ($)</option>
+          <option value="EUR">Euro (€)</option>
+          <option value="GBP">Pound (£)</option>
+        </select>
+      </div>
+    </footer>
+
+    <script>
+      window.addEventListener("load", function () {
+        const preloader = document.getElementById("preloader");
+        preloader.style.opacity = "0";
+        preloader.style.visibility = "hidden";
+        preloader.style.transition = "opacity 0.5s ease";
+      });
+      function toggleMenu() {
+        document.getElementById("mobile-nav").classList.toggle("show");
+      }
+
+      function openPopup() {
+        document.getElementById("vip-popup").style.display = "flex";
+        document.getElementById("vip-msg").style.display = "none";
+        document.getElementById("vip-phone").value = "";
+      }
+
+      function closePopup() {
+        document.getElementById("vip-popup").style.display = "none";
+      }
+
+      function submitVIP() {
+        const phone = document.getElementById("vip-phone").value;
+        const msg = document.getElementById("vip-msg");
+
+        if (!phone || phone.length < 7) {
+          alert("Please enter a valid phone number.");
+          return;
+        }
+
+        msg.style.display = "block";
+
+        // Auto-close popup after 2.5 seconds
+        setTimeout(() => {
+          closePopup();
+        }, 2500);
+      }
+    </script>
+  </body>
+</html>

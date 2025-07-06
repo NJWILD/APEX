@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Your Cart - Apex</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      .cart-page {
+        max-width: 800px;
+        margin: 3rem auto;
+        padding: 2rem;
+        background: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+      }
+      .cart-page h2 {
+        font-size: 1.8rem;
+        margin-bottom: 1rem;
+      }
+      .cart-page ul {
+        list-style: none;
+        padding: 0;
+      }
+      .cart-page li {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+        font-size: 0.95rem;
+      }
+      .cart-page li input {
+        width: 50px;
+        margin-left: 10px;
+      }
+      .cart-page .total {
+        font-size: 1.2rem;
+        margin-top: 1.5rem;
+        text-align: right;
+      }
+      .cart-page button.checkout-btn {
+        background: green;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        margin-top: 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        float: right;
+      }
+      .extras {
+        margin-top: 3rem;
+        padding-top: 2rem;
+        border-top: 1px solid #ccc;
+      }
+      .extras a {
+        display: block;
+        margin-bottom: 10px;
+        color: #333;
+        text-decoration: none;
+      }
+      .extras a:hover {
+        color: #f39c12;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="preloader">
+      <div class="loader"></div>
+    </div>
+    <header class="header">
+      <h1>APEX</h1>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="shop.html">Shop</a>
+        <a href="contact.html">Contact</a>
+        <button onclick="logout()">Login/Logout</button>
+      </nav>
+    </header>
+    <div class="back-to-shop" style="text-align: center; margin-top: 2rem">
+      <a
+        href="shop.html"
+        style="
+          color: #333;
+          font-size: 1rem;
+          text-decoration: none;
+          font-weight: 500;
+          border: 1px solid #ccc;
+          padding: 10px 20px;
+          border-radius: 6px;
+          transition: all 0.3s ease;
+        "
+      >
+        ← Back to Shop
+      </a>
+    </div>
+    <section class="cart-page">
+      <h2>Your Cart</h2>
+      <ul id="cart-items"></ul>
+      <p class="total">Total: <span id="cart-total">0</span></p>
+      <button class="checkout-btn" onclick="prepareCheckout()">
+        <a href="checkout.html" style="color: #fff">Go to Checkout</a>
+      </button>
+
+      <div class="extras">
+        <h3>Need More Info?</h3>
+        <a href="contact.html">📞 Contact Us</a>
+        <a href="#">🚚 Shipping & Delivery Policy</a>
+        <a href="#">📐 Size Guide</a>
+        <a href="#">🫼 Care Instructions</a>
+        <a href="shop.html">🛖 Shop More Products</a>
+      </div>
+    </section>
+
+    <footer class="site-footer">
+      <div class="footer-container">
+        <!-- Navigation Links -->
+        <div class="footer-column">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="shop.html">Shop</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="login.html">Login</a></li>
+          </ul>
+        </div>
+
+        <!-- Legal Stuff -->
+        <div class="footer-column">
+          <h3>Information</h3>
+          <details>
+            <summary>Privacy Policy</summary>
+            <p>
+              Your data is safe with us. <a href="privacy.html">Read more</a>
+            </p>
+          </details>
+          <details>
+            <summary>Terms & Conditions</summary>
+            <p>
+              Please read how you’re allowed to use this site.
+              <a href="terms.html">Read more</a>
+            </p>
+          </details>
+          <details>
+            <summary>Shipping & Delivery</summary>
+            <p>
+              Get info on delivery timelines and areas.
+              <a href="shipping.html">Read more</a>
+            </p>
+          </details>
+        </div>
+
+        <!-- Social Media -->
+        <div class="footer-column">
+          <h3>Connect With Us</h3>
+          <div class="social-icons">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-whatsapp"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        &copy; 2025 Apex Clothing. All rights reserved.
+      </div>
+
+      <div class="currency-switcher">
+        <label for="currency-switcher">Select Currency:</label>
+        <select id="currency-switcher">
+          <option value="NGN" selected>Naira (₦)</option>
+          <option value="USD">Dollar ($)</option>
+          <option value="EUR">Euro (€)</option>
+          <option value="GBP">Pound (£)</option>
+        </select>
+      </div>
+    </footer>
+
+    <script src="https://js.paystack.co/v1/inline.js"></script>
+    <script src="script.js"></script>
+    <script>
+      window.addEventListener("load", function () {
+        const preloader = document.getElementById("preloader");
+        preloader.style.opacity = "0";
+        preloader.style.visibility = "hidden";
+        preloader.style.transition = "opacity 0.5s ease";
+      });
+      window.onload = () => {
+        const user = JSON.parse(localStorage.getItem("apex-current-user"));
+        if (!user) return (location.href = "login.html");
+        updateCart();
+        const currencyDropdown = document.getElementById("currency-select");
+        if (currencyDropdown) {
+          currencyDropdown.value =
+            localStorage.getItem("apex-currency") || "NGN";
+          currencyDropdown.addEventListener("change", (e) => {
+            updateCurrency(e.target.value);
+          });
+        }
+      };
+    </script>
+  </body>
+</html>

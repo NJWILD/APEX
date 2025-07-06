@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login - Apex Clothing</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background: linear-gradient(to right, #111, #333);
+        color: white;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+      .login-container {
+        background: #fff;
+        color: #333;
+        padding: 2rem;
+        border-radius: 10px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+        width: 90%;
+        max-width: 400px;
+        animation: slideFadeIn 0.8s ease forwards;
+      }
+      .login-container h2 {
+        text-align: center;
+        margin-bottom: 1.5rem;
+      }
+      .login-container input {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+      }
+      .login-container button {
+        width: 100%;
+        background: #111;
+        color: white;
+        border: none;
+        padding: 10px;
+        font-size: 1rem;
+        border-radius: 5px;
+        cursor: pointer;
+        animation: bounce 1.5s infinite;
+      }
+      @keyframes bounce {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-8px);
+        }
+      }
+      .login-container a {
+        display: block;
+        text-align: center;
+        margin-top: 1rem;
+        color: #555;
+        text-decoration: none;
+      }
+      .login-container a:hover {
+        color: #f39c12;
+      }
+
+      @keyframes slideFadeIn {
+        from {
+          transform: translateY(-30px);
+          opacity: 0;
+        }
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="login-container">
+      <h2>Login to Apex</h2>
+      <input type="email" id="login-email" placeholder="Email" required />
+      <input
+        type="password"
+        id="login-password"
+        placeholder="Password"
+        required
+      />
+      <button onclick="loginUser()">Login</button>
+      <a href="signup.html">Don't have an account? Sign up</a>
+    </div>
+
+    <script>
+      function loginUser() {
+        const email = document.getElementById("login-email").value;
+        const password = document.getElementById("login-password").value;
+        if (!email || !password) return alert("Please fill in all fields");
+        // Fake auth for demo:
+        const user = { email };
+        localStorage.setItem("apex-current-user", JSON.stringify(user));
+        window.location.href = "index.html";
+      }
+    </script>
+  </body>
+</html>

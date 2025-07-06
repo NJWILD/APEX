@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Apex Clothing - Home</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div id="preloader">
+      <div class="loader"></div>
+    </div>
+    <style>
+      /* Fade-in animation on page load */
+      body {
+        opacity: 0.5;
+        animation: fadeIn 2s ease forwards;
+      }
+
+      @keyframes fadeIn {
+        to {
+          opacity: 1;
+        }
+      }
+    </style>
+    <header class="header">
+      <h1>APEX</h1>
+      <div class="hamburger" onclick="toggleMenu()">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+
+      <nav id="mobile-nav">
+        <a href="index.html">Home</a>
+        <a href="shop.html">Shop</a>
+        <a href="blog.html">Blog</a>
+        <a href="contact.html">Contact</a>
+        <button onclick="toggleCart()">
+          <i class="fas fa-shopping-cart"></i> (<span id="cart-count">0</span>)
+        </button>
+        <button onclick="logout()" class="logoutbtn">
+          <a href="login.html">Login/Logout</a>
+        </button>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <h2>Unleash Your Style</h2>
+      <p>Shop premium T-shirts, hoodies, jackets and more</p>
+      <a href="shop.html" class="shop-btn">Shop All Products</a>
+    </section>
+
+    <section class="featured">
+      <h3>Featured Products</h3>
+      <div id="featured-slider" class="slider-container"></div>
+    </section>
+
+    <section class="best-sellers">
+      <h3>Best Sellers</h3>
+      <div id="bestsellers-slider" class="slider-container"></div>
+    </section>
+
+    <section class="limited-drops">
+      <h3>Limited Exclusive Drops</h3>
+      <div id="limited-slider" class="slider-container"></div>
+    </section>
+
+    <section class="collections">
+      <h3>Collections</h3>
+      <div id="collections-slider" class="slider-container"></div>
+    </section>
+
+    <section class="info-panels">
+      <div>
+        <h4>📦 Shipping & Delivery</h4>
+        <p>Fast & reliable delivery across Nigeria</p>
+      </div>
+      <div>
+        <h4>📐 Size Guide</h4>
+        <p>Accurate fit for every body type</p>
+      </div>
+      <div>
+        <h4>🧼 Care Instructions</h4>
+        <p>Machine washable, long-lasting fabric</p>
+      </div>
+    </section>
+    <section
+      class="latest-blog"
+      style="padding: 4rem 2rem; background: #f9f9f9"
+    >
+      <h2 style="text-align: center; font-size: 2rem; margin-bottom: 2rem">
+        See Our Vibe
+      </h2>
+      <div
+        style="
+          display: flex;
+          flex-wrap: wrap;
+          gap: 1rem;
+          justify-content: center;
+        "
+      >
+        <div
+          style="
+            flex: 1;
+            max-width: 300px;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+            transition: 0.3s;
+          "
+        >
+          <img
+            src="images/blog1.jpg"
+            alt="Tee Styling"
+            style="width: 100%; height: 180px; object-fit: cover"
+            loading="lazy"
+          />
+          <div style="padding: 1rem">
+            <h3 style="margin: 0 0 0.5rem">5 Ways to Style T-Shirts</h3>
+            <p style="font-size: 0.9rem; color: #666">
+              Explore fashion-forward ways to wear our tees every day.
+            </p>
+            <a href="blog-post1.html" style="color: #ff6600; font-weight: 600"
+              >Read More</a
+            >
+          </div>
+        </div>
+        <div
+          style="
+            flex: 1;
+            max-width: 300px;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+            transition: 0.3s;
+          "
+        >
+          <img
+            src="images/blog2.jpg"
+            alt="Layering Hoodies"
+            style="width: 100%; height: 180px; object-fit: cover"
+            loading="lazy"
+          />
+          <div style="padding: 1rem">
+            <h3 style="margin: 0 0 0.5rem">Master Hoodie Layering</h3>
+            <p style="font-size: 0.9rem; color: #666">
+              Tips for cold days and hot looks using Apex hoodies.
+            </p>
+            <a href="blog-post2.html" style="color: #ff6600; font-weight: 600"
+              >Read More</a
+            >
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- VIP Subscribe Section -->
+    <section class="vip-subscribe">
+      <h1>Subscribe to our Channel</h1>
+      <a
+        href="#"
+        onclick="openPopup()"
+        style="
+          display: inline-block;
+          margin-top: 1rem;
+          padding: 0.8rem 1.5rem;
+          background-color: #ff6600;
+          color: white;
+          text-decoration: none;
+          border-radius: 8px;
+        "
+        >Claim VIP Discount</a
+      >
+    </section>
+
+    <!-- Popup Modal -->
+    <div
+      id="vip-popup"
+      style="
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.7);
+        z-index: 999;
+        justify-content: center;
+        align-items: center;
+      "
+    >
+      <div
+        style="
+          background: white;
+          color: black;
+          padding: 2rem;
+          border-radius: 10px;
+          max-width: 400px;
+          width: 90%;
+          text-align: center;
+          position: relative;
+        "
+      >
+        <h2>Insert Your Phone Number</h2>
+        <input
+          type="text"
+          id="vip-phone"
+          placeholder="e.g. 08123456789"
+          style="
+            width: 100%;
+            padding: 0.6rem;
+            margin: 1rem 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+          "
+        />
+        <p style="font-size: 0.85rem; color: #555">
+          By subscribing, you agree to our brief terms and conditions.
+        </p>
+        <button
+          onclick="submitVIP()"
+          style="
+            padding: 0.6rem 1.2rem;
+            background: #111;
+            color: white;
+            border: none;
+            border-radius: 5px;
+          "
+        >
+          Submit
+        </button>
+        <p id="vip-msg" style="margin-top: 1rem; color: green; display: none">
+          You have been subscribed!
+        </p>
+        <button
+          onclick="closePopup()"
+          style="
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+          "
+        >
+          &times;
+        </button>
+      </div>
+    </div>
+
+    <footer class="site-footer">
+      <div class="footer-container">
+        <!-- Navigation Links -->
+        <div class="footer-column">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="shop.html">Shop</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="login.html">Login</a></li>
+          </ul>
+        </div>
+
+        <!-- Legal Stuff -->
+        <div class="footer-column">
+          <h3>Information</h3>
+          <details>
+            <summary>Privacy Policy</summary>
+            <p>
+              Your data is safe with us. <a href="privacy.html">Read more</a>
+            </p>
+          </details>
+          <details>
+            <summary>Terms & Conditions</summary>
+            <p>
+              Please read how you’re allowed to use this site.
+              <a href="terms.html">Read more</a>
+            </p>
+          </details>
+          <details>
+            <summary>Shipping & Delivery</summary>
+            <p>
+              Get info on delivery timelines and areas.
+              <a href="shipping.html">Read more</a>
+            </p>
+          </details>
+        </div>
+
+        <!-- Social Media -->
+        <div class="footer-column">
+          <h3>Connect With Us</h3>
+          <div class="social-icons">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-whatsapp"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        &copy; 2025 Apex Clothing. All rights reserved.
+      </div>
+
+      <div class="currency-switcher">
+        <label for="currency-switcher">Select Currency:</label>
+        <select id="currency-switcher">
+          <option value="NGN" selected>Naira (₦)</option>
+          <option value="USD">Dollar ($)</option>
+          <option value="EUR">Euro (€)</option>
+          <option value="GBP">Pound (£)</option>
+        </select>
+      </div>
+    </footer>
+
+    <div id="cart" class="cart hidden slide-in">
+      <h2>Your Cart</h2>
+      <ul id="cart-items"></ul>
+      <p>Total: <span id="cart-total">0</span></p>
+      <button onclick="prepareCheckout()">
+        <a href="checkout.html" style="color: #f9f9f9">Checkout</a>
+      </button>
+    </div>
+    <!-- Paystack -->
+    <script src="https://js.paystack.co/v1/inline.js"></script>
+    <!-- Flutterwave -->
+    <script src="https://checkout.flutterwave.com/v3.js"></script>
+
+    <script src="script.js"></script>
+    <script>
+      window.addEventListener("load", function () {
+        const preloader = document.getElementById("preloader");
+        preloader.style.opacity = "0";
+        preloader.style.visibility = "hidden";
+        preloader.style.transition = "opacity 0.5s ease";
+      });
+      function openPopup() {
+        document.getElementById("vip-popup").style.display = "flex";
+        document.getElementById("vip-msg").style.display = "none";
+        document.getElementById("vip-phone").value = "";
+      }
+
+      function closePopup() {
+        document.getElementById("vip-popup").style.display = "none";
+      }
+
+      function submitVIP() {
+        const phone = document.getElementById("vip-phone").value;
+        const msg = document.getElementById("vip-msg");
+
+        if (!phone || phone.length < 7) {
+          alert("Please enter a valid phone number.");
+          return;
+        }
+
+        msg.style.display = "block";
+
+        // Auto-close popup after 2.5 seconds
+        setTimeout(() => {
+          closePopup();
+        }, 2500);
+      }
+    </script>
+  </body>
+</html>

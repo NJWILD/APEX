@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Product Details - Apex</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      body {
+        font-family: "Outfit", sans-serif;
+        padding: 2rem;
+      }
+      .product-container {
+        max-width: 900px;
+        margin: auto;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2rem;
+        align-items: flex-start;
+      }
+      .product-container img {
+        max-width: 100%;
+        border-radius: 10px;
+        width: 300px;
+      }
+      .product a {
+        display: inline-block;
+        margin-top: 0.5rem;
+        padding: 0.4rem 1rem;
+        background-color: #111;
+        color: white;
+        text-decoration: none;
+        border-radius: 6px;
+        font-size: 0.9rem;
+        transition: background-color 0.3s ease;
+      }
+
+      .product a:hover {
+        background-color: #ff6600;
+      }
+
+      .product-info {
+        flex: 1;
+      }
+      .product-info h2 {
+        margin-top: 0;
+      }
+      .product-info select,
+      .product-info input,
+      .product-info button {
+        margin-top: 1rem;
+        display: block;
+      }
+      .recommendations {
+        margin-top: 4rem;
+      }
+      .recommendations h3 {
+        margin-bottom: 1rem;
+      }
+      .recommendations .product {
+        display: inline-block;
+        width: 180px;
+        margin-right: 1rem;
+        text-align: center;
+      }
+      .recommendations .product img {
+        width: 100%;
+        border-radius: 10px;
+      }
+      .stock-status {
+        font-weight: bold;
+        margin-top: 0.5rem;
+        color: green;
+      }
+      .stock-status.sold-out {
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="preloader">
+      <div class="loader"></div>
+    </div>
+    <a href="shop.html" style="display: inline-block; margin-bottom: 2rem"
+      >← Back to Shop</a
+    >
+
+    <div class="product-container" id="product-details"></div>
+
+    <div class="recommendations" id="you-may-also-like">
+      <h3>You May Also Like</h3>
+      <div class="product-list" id="recommendation-list"></div>
+    </div>
+
+    <div style="text-align: right; margin-bottom: 1rem">
+      <label for="currency-select">Currency:</label>
+      <select id="currency-select">
+        <option value="NGN">₦ NGN</option>
+        <option value="USD">$ USD</option>
+        <option value="EUR">€ EUR</option>
+        <option value="GBP">£ GBP</option>
+      </select>
+    </div>
+
+    <script>
+      window.addEventListener("load", function () {
+        const preloader = document.getElementById("preloader");
+        preloader.style.opacity = "0";
+        preloader.style.visibility = "hidden";
+        preloader.style.transition = "opacity 0.5s ease";
+      });
+      const exchangeRates = {
+        NGN: 1,
+        USD: 0.0012,
+        EUR: 0.0011,
+        GBP: 0.001,
+      };
+
+      function getCurrencySymbol(code) {
+        return (
+          {
+            NGN: "₦",
+            USD: "$",
+            EUR: "€",
+            GBP: "£",
+          }[code] || ""
+        );
+      }
+
+      function getConvertedPrice(price) {
+        const currentCurrency = localStorage.getItem("apex-currency") || "NGN";
+        const rate = exchangeRates[currentCurrency] || 1;
+        const converted = price * rate;
+        const symbol = getCurrencySymbol(currentCurrency);
+        return currentCurrency === "NGN"
+          ? `${symbol}${price}`
+          : `${symbol}${Math.round(converted)}`;
+      }
+
+      const currencySelect = document.getElementById("currency-select");
+      if (currencySelect) {
+        currencySelect.value = localStorage.getItem("apex-currency") || "NGN";
+        currencySelect.addEventListener("change", function () {
+          localStorage.setItem("apex-currency", this.value);
+          location.reload();
+        });
+      }
+
+      const params = new URLSearchParams(window.location.search);
+      const id = parseInt(params.get("id"), 10);
+      const allProducts =
+        JSON.parse(localStorage.getItem("apex-all-products")) || [];
+      const product = allProducts[id];
+      const container = document.getElementById("product-details");
+
+      if (!product) {
+        container.innerHTML = "<p>Product not found.</p>";
+      } else {
+        const stockText = product.stock === 0 ? "Sold Out" : "In Stock";
+        const stockClass = product.stock === 0 ? "sold-out" : "in-stock";
+        const isSoldOut = product.stock === 0;
+
+        const sizes = product.sizes
+          .map((size) => `<option value="${size}">${size}</option>`)
+          .join("");
+
+        container.innerHTML = `
+      <img src="${product.image}" alt="${product.name}" />
+      <div class="product-info">
+        <h2>${product.name}</h2>
+        <p id="product-price">${getConvertedPrice(product.price)}</p>
+        <p class="stock-status ${stockClass}">${stockText}</p>
+        <label for="size-select">Select Size:</label>
+        <select id="size-select" ${
+          isSoldOut ? "disabled" : ""
+        }>${sizes}</select>
+        <label for="qty">Quantity:</label>
+        <input type="number" id="qty" value="1" min="1" max="${
+          product.stock
+        }" ${isSoldOut ? "disabled" : ""} />
+        <button class="productcartbtn" onclick="addToCart()" ${
+          isSoldOut
+            ? "disabled style='background:#999; cursor:not-allowed;'"
+            : ""
+        }>
+          ${isSoldOut ? "Sold Out" : "Add to Cart"}
+        </button>
+      </div>
+    `;
+      }
+
+      function addToCart() {
+        if (product.stock === 0) {
+          alert("This product is sold out.");
+          return;
+        }
+
+        const size = document.getElementById("size-select").value;
+        const qty = parseInt(document.getElementById("qty").value, 10);
+        if (!size || qty <= 0)
+          return alert("Please select a valid size and quantity");
+
+        let cart = JSON.parse(localStorage.getItem("apex-cart")) || [];
+        const existing = cart.find(
+          (item) => item.name === product.name && item.size === size
+        );
+        const alreadyInCart = existing ? existing.quantity : 0;
+
+        if (alreadyInCart + qty > product.stock) {
+          return alert(
+            `Only ${
+              product.stock - alreadyInCart
+            } item(s) left in stock for this size.`
+          );
+        }
+
+        if (existing) {
+          existing.quantity += qty;
+        } else {
+          cart.push({
+            name: product.name,
+            price: product.price,
+            size,
+            quantity: qty,
+          });
+        }
+
+        localStorage.setItem("apex-cart", JSON.stringify(cart));
+        alert("Product added to cart!");
+      }
+
+      // Recommendations
+      const recContainer = document.getElementById("recommendation-list");
+      const similar = allProducts
+        .filter((p, i) => p.category === product.category && i !== id)
+        .slice(0, 4);
+
+      recContainer.innerHTML = similar
+        .map(
+          (item) => `
+      <div class="product">
+        <img src="${item.image}" alt="${item.name}" />
+        <p>${item.name}</p>
+        <p>${getConvertedPrice(item.price)}</p>
+        <a href="product.html?id=${allProducts.indexOf(item)}">View</a>
+      </div>
+    `
+        )
+        .join("");
+    </script>
+  </body>
+</html>

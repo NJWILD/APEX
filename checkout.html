@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Checkout - Apex Clothing</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: "Segoe UI", sans-serif;
+        background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+        animation: fadeIn 1s ease-in;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .checkout-container {
+        max-width: 600px;
+        margin: 60px auto;
+        padding: 40px 30px;
+        background: white;
+        border-radius: 16px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        animation: fadeIn 1s ease-in-out;
+      }
+
+      .checkout-container h2 {
+        margin-bottom: 25px;
+        text-align: center;
+        font-size: 2rem;
+        color: #222;
+      }
+
+      .form-group {
+        margin-bottom: 15px;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 6px;
+        font-weight: 500;
+      }
+
+      input,
+      select {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        font-size: 1rem;
+      }
+
+      .shipping-methods label {
+        display: block;
+        margin: 10px 0;
+      }
+
+      .checkout-total,
+      .currency-select,
+      .payment-buttons,
+      .back-shop {
+        margin-top: 20px;
+        text-align: center;
+      }
+
+      .checkout-total span {
+        font-weight: bold;
+        font-size: 1.2rem;
+        color: green;
+      }
+
+      .pay-button {
+        padding: 12px 22px;
+        margin: 10px 10px 0 10px;
+        border: none;
+        border-radius: 8px;
+        background-color: #111;
+        color: white;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .pay-button:hover {
+        background-color: #444;
+      }
+
+      .back-shop a {
+        display: inline-block;
+        margin-top: 10px;
+        color: #333;
+        font-weight: 500;
+        text-decoration: none;
+        transition: 0.3s;
+      }
+
+      .back-shop a:hover {
+        text-decoration: underline;
+        color: #000;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="preloader">
+      <div class="loader"></div>
+    </div>
+    <!-- Back to Shop -->
+    <div class="back-shop">
+      <a href="shop.html">← Back to Shop</a>
+    </div>
+
+    <div class="checkout-container">
+      <h2>Checkout</h2>
+
+      <form id="delivery-form">
+        <div class="form-group">
+          <label for="country">Country/Region</label>
+          <select id="country">
+            <option value="Nigeria">Nigeria</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="first-name">First Name</label>
+          <input type="text" id="first-name" required />
+        </div>
+        <div class="form-group">
+          <label for="last-name">Last Name</label>
+          <input type="text" id="last-name" required />
+        </div>
+        <div class="form-group">
+          <label for="address">Address</label>
+          <input type="text" id="address" required />
+        </div>
+        <div class="form-group">
+          <label for="apartment">Apartment/Suite</label>
+          <input type="text" id="apartment" />
+        </div>
+        <div class="form-group">
+          <label for="city">City</label>
+          <input type="text" id="city" required />
+        </div>
+        <div class="form-group">
+          <label for="state">State</label>
+          <select id="state">
+            <option value="">Select state</option>
+            <option value="Lagos">Lagos</option>
+            <option value="Abuja">Abuja</option>
+            <option value="Kano">Kano</option>
+            <option value="Rivers">Rivers</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="postal-code">Postal Code</label>
+          <input type="text" id="postal-code" />
+        </div>
+
+        <h3>Shipping Method</h3>
+        <div class="shipping-methods">
+          <label>
+            <input
+              type="radio"
+              name="shipping"
+              value="standard"
+              data-price="2000"
+              checked
+            />
+            Standard Shipping (₦2,000) - 3 to 5 days
+          </label>
+          <label>
+            <input
+              type="radio"
+              name="shipping"
+              value="express"
+              data-price="4000"
+            />
+            Express Shipping (₦4,000) - 1 to 2 days
+          </label>
+          <label>
+            <input type="radio" name="shipping" value="pickup" data-price="0" />
+            Free Pickup (₦0)
+          </label>
+        </div>
+
+        <!-- Currency Dropdown -->
+        <div class="currency-select">
+          <label for="currency">Select Currency:</label>
+          <select id="currency">
+            <option value="NGN">NGN - Naira</option>
+            <option value="USD">USD - Dollar</option>
+            <option value="EUR">EUR - Euro</option>
+            <option value="GBP">GBP - Pound</option>
+          </select>
+        </div>
+
+        <!-- Total Display -->
+        <div class="checkout-total">
+          <strong>Total:</strong> <span id="displayTotal">₦0</span>
+        </div>
+
+        <!-- Payment Buttons -->
+        <div class="payment-buttons">
+          <button type="button" id="payWithPaystack" class="pay-button">
+            Pay with Paystack
+          </button>
+          <button type="button" id="payWithFlutterwave" class="pay-button">
+            Pay with Flutterwave
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Paystack -->
+    <script src="https://js.paystack.co/v1/inline.js"></script>
+    <!-- Flutterwave -->
+    <script src="https://checkout.flutterwave.com/v3.js"></script>
+
+    <!-- Inline Script -->
+    <script>
+      window.addEventListener("load", function () {
+        const preloader = document.getElementById("preloader");
+        preloader.style.opacity = "0";
+        preloader.style.visibility = "hidden";
+        preloader.style.transition = "opacity 0.5s ease";
+      });
+      const currencySelect = document.getElementById("currency");
+      const paystackBtn = document.getElementById("payWithPaystack");
+      const flutterwaveBtn = document.getElementById("payWithFlutterwave");
+      const displayTotal = document.getElementById("displayTotal");
+      const shippingRadios = document.querySelectorAll(
+        "input[name='shipping']"
+      );
+
+      const currencySymbols = { NGN: "₦", USD: "$", EUR: "€", GBP: "£" };
+      const currencyRates = { NGN: 1, USD: 0.0012, EUR: 0.0011, GBP: 0.001 };
+
+      const cart = JSON.parse(localStorage.getItem("apex-cart")) || [];
+      let selectedCurrency = localStorage.getItem("apex-currency") || "NGN";
+      currencySelect.value = selectedCurrency;
+
+      let total = 0;
+      if (cart.length > 0) {
+        cart.forEach((item) => {
+          total += item.price * item.quantity;
+        });
+      }
+
+      function getShippingCost() {
+        let cost = 0;
+        shippingRadios.forEach((radio) => {
+          if (radio.checked) cost = parseInt(radio.dataset.price);
+        });
+        return cost;
+      }
+
+      function updateTotalDisplay() {
+        const shippingCost = getShippingCost();
+        const selected = currencySelect.value;
+        const fullAmount = (total + shippingCost) * currencyRates[selected];
+        const roundedAmount = Math.round(fullAmount);
+
+        displayTotal.textContent = `${currencySymbols[selected]}${roundedAmount}`;
+
+        paystackBtn.style.display =
+          selected === "NGN" && total > 0 ? "inline-block" : "none";
+        flutterwaveBtn.style.display = total > 0 ? "inline-block" : "none";
+
+        localStorage.setItem("cartTotal", (total + shippingCost) * 100); // Paystack uses kobo
+        localStorage.setItem("apex-currency", selected);
+      }
+
+      currencySelect.addEventListener("change", updateTotalDisplay);
+      shippingRadios.forEach((radio) =>
+        radio.addEventListener("change", updateTotalDisplay)
+      );
+
+      updateTotalDisplay();
+
+      const userEmail =
+        localStorage.getItem("userEmail") || "customer@example.com";
+
+      paystackBtn.addEventListener("click", () => {
+        const handler = PaystackPop.setup({
+          key: "pk_test_f5ed3e79b7c217ef827ad52a481bec40e2485ddb",
+          email: userEmail,
+          amount: parseInt(localStorage.getItem("cartTotal")),
+          currency: "NGN",
+          callback: function (response) {
+            alert("Payment successful! Ref: " + response.reference);
+            localStorage.removeItem("apex-cart");
+            localStorage.removeItem("cartTotal");
+            window.location.href = "success.html";
+          },
+          onClose: function () {
+            alert("Transaction closed");
+          },
+        });
+        handler.openIframe();
+      });
+
+      flutterwaveBtn.addEventListener("click", () => {
+        const selected = currencySelect.value;
+        const totalInCurrency = Math.round(
+          (total + getShippingCost()) * currencyRates[selected]
+        );
+
+        FlutterwaveCheckout({
+          public_key: "FLWPUBK_TEST-your_flutterwave_key",
+          tx_ref: "TX-" + Date.now(),
+          amount: totalInCurrency,
+          currency: selected,
+          customer: {
+            email: userEmail,
+            name: "Customer",
+          },
+          callback: function (data) {
+            alert("Payment complete! Ref: " + data.transaction_id);
+            localStorage.removeItem("apex-cart");
+            localStorage.removeItem("cartTotal");
+            window.location.href = "success.html";
+          },
+          onclose: function () {
+            alert("Payment window closed");
+          },
+          customizations: {
+            title: "Apex Clothing",
+            description: "Order Payment",
+            logo: "APEX",
+          },
+        });
+      });
+    </script>
+  </body>
+</html>
